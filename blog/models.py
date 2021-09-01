@@ -8,3 +8,23 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+class State(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+class City(models.Model):
+    state = models.ForeignKey(State, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return str(self.name)
+
+class Population(models.Model):
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    population = models.PositiveIntegerField(null=True)
+
+    def __str__(self):
+        return str(self.city) + " - "+ str(self.population)
+
